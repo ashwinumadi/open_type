@@ -94,11 +94,11 @@ def get_example(self, generator, glove_dict, batch_size, answer_num,
     print('Starting Now')
     for i in range(batch_size):
       try:
-        print('here?')
+        #print('here?')
         cur_stream[i] = list(next(generator))
-        print(cur_stream[i])
+        #print(cur_stream[i])
       except Exception as exp:#StopIteration:
-        print(exp)
+        #print(exp)
         no_more_data = True
         bsz = i
         break

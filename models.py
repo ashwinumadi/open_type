@@ -109,6 +109,8 @@ class Model(nn.Module):
       context_rep = torch.cat((left_outputs, right_outputs), 1)
       context_rep, _ = self.attentive_sum(context_rep)
     elif self.lstm_type == 'single':
+      print("==============================")
+      print('Single model began')
       token_mask_embed = self.token_mask(feed_dict['token_bio'].view(-1, 4))
       token_mask_embed = token_mask_embed.view(feed_dict['token_embed'].size()[0], -1, 50)
       token_embed = torch.cat((feed_dict['token_embed'], token_mask_embed), 2)
