@@ -75,8 +75,15 @@ def get_word_vec(word, vec_dict):
   return vec_dict['unk']
 
 
-def get_example(generator, glove_dict, batch_size, answer_num,
+def get_example(self, generator, glove_dict, batch_size, answer_num,
                 eval_data=False, lstm_type="two", simple_mention=True):
+  print(self._all_shards)
+  for shard in self._all_shards:
+        ids = self._load_shard(shard, eval_data)
+        print('Printing Shards')
+        print(ids)
+        for current_ids in ids:
+          yield current_ids
   embed_dim = 300
   cur_stream = [None] * batch_size
   no_more_data = False
@@ -238,6 +245,6 @@ class TypeDataset(object):
           yield current_ids
 
   def get_batch(self, batch_size=128, epoch=5, forever=False, eval_data=False, simple_mention=True):
-    return get_example(self._get_sentence(epoch, forever=forever, eval_data=eval_data), self.glove_dict,
+    return get_example(self, self._get_sentence(epoch, forever=forever, eval_data=eval_data), self.glove_dict,
                        batch_size=batch_size, answer_num=self.answer_num, eval_data=eval_data,
                        simple_mention=simple_mention, lstm_type=self.lstm_type)
