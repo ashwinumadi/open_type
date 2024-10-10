@@ -91,6 +91,7 @@ def get_datasets(data_lists, args):
 
 
 def _train(args):
+  print("T1: First stage of Train")
   if args.data_setup == 'joint':
     train_gen_list, val_gen_list, crowd_dev_gen = get_joint_datasets(args)
   else:
@@ -100,6 +101,7 @@ def _train(args):
                               (dev_fname, 'dev', args.goal)], args)
     train_gen_list = [(args.goal, data_gens[0])]
     val_gen_list = [(args.goal, data_gens[1])]
+  print("T1: Second stage of Train")
   train_log = SummaryWriter(os.path.join(constant.EXP_ROOT, args.model_id, "log", "train"))
   validation_log = SummaryWriter(os.path.join(constant.EXP_ROOT, args.model_id, "log", "validation"))
   tensorboard = TensorboardWriter(train_log, validation_log)
