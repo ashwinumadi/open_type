@@ -128,10 +128,10 @@ def _train(args):
                    '{0:s}/{1:s}.pt'.format(constant.EXP_ROOT, args.model_id))
         return
       optimizer.zero_grad()
-      print("T0: ",batch,type_name)
+      #print("T0: ",batch,type_name)
       loss, output_logits = model(batch, type_name)
-      print("T0 : ", loss)
-      print("T0 : ", output_logits)
+      #print("T0 : ", loss)
+      #print("T0 : ", output_logits)
       loss.backward()
       total_loss += loss.data.cpu().item() #change here : loss.data.cpu()[0]
       optimizer.step()

@@ -239,8 +239,8 @@ class TypeDataset(object):
     for i in range(0, epoch if not forever else 100000000000000):
       for shard in self._all_shards:
         ids = self._load_shard(shard, eval_data)
-        print('Printing Shards')
-        print(ids)
+        #print('Printing Shards')
+        #print(ids)
         for current_ids in ids:
           yield current_ids
 
