@@ -23,7 +23,7 @@ module load cuda/12.1.1
 
 #cd ../
 
-cd /rc_scratch/asum8093/open_type/resources/
+cd /rc_scratch/asum8093/open_type/
 conda activate py38-pt1131-cuda117
 pip install tensorboard
 #mkdir models
