@@ -100,7 +100,7 @@ def get_example(generator, glove_dict, batch_size, answer_num,
       left_seq_length = np.zeros([bsz], np.int32)
       right_seq_length = np.zeros([bsz], np.int32)
     else:
-      print(cur_stream)
+      #print(cur_stream)
       max_seq_length = min(50, max([len(elem[1]) + len(elem[2]) + len(elem[3]) for elem in cur_stream if elem]))
       token_embed = np.zeros([bsz, max_seq_length, embed_dim], np.float32)
       token_seq_length = np.zeros([bsz], np.float32)
@@ -231,6 +231,8 @@ class TypeDataset(object):
     for i in range(0, epoch if not forever else 100000000000000):
       for shard in self._all_shards:
         ids = self._load_shard(shard, eval_data)
+        print('Printing Shards')
+        print(ids)
         for current_ids in ids:
           yield current_ids
 
