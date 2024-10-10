@@ -87,6 +87,7 @@ def get_example(generator, glove_dict, batch_size, answer_num,
     print('Starting Now')
     for i in range(batch_size):
       try:
+        print('here?')
         cur_stream[i] = list(next(generator))
         print(cur_stream[i])
       except StopIteration:
@@ -99,6 +100,7 @@ def get_example(generator, glove_dict, batch_size, answer_num,
       left_seq_length = np.zeros([bsz], np.int32)
       right_seq_length = np.zeros([bsz], np.int32)
     else:
+      print(cur_stream)
       max_seq_length = min(50, max([len(elem[1]) + len(elem[2]) + len(elem[3]) for elem in cur_stream if elem]))
       token_embed = np.zeros([bsz, max_seq_length, embed_dim], np.float32)
       token_seq_length = np.zeros([bsz], np.float32)
