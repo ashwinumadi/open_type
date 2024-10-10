@@ -84,9 +84,11 @@ def get_example(generator, glove_dict, batch_size, answer_num,
   while True:
     bsz = batch_size
     seq_length = 25
+    print('Starting Now')
     for i in range(batch_size):
       try:
         cur_stream[i] = list(next(generator))
+        print(cur_stream[i])
       except StopIteration:
         no_more_data = True
         bsz = i
