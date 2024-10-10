@@ -91,7 +91,7 @@ def get_example(self, generator, glove_dict, batch_size, answer_num,
   while True:
     bsz = batch_size
     seq_length = 25
-    print('Starting Now')
+    #print('Starting Now')
     for i in range(batch_size):
       try:
         #print('here?')
