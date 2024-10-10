@@ -34,9 +34,9 @@ parser.add_argument("-lstm_type", default="two", choices=["two", "single"])
 parser.add_argument("-dim_hidden", help="The number of hidden dimension.", default=100, type=int)
 parser.add_argument("-rnn_dim", help="The number of RNN dimension.", default=100, type=int)
 # Save / log related
-parser.add_argument("-save_period", help="How often to save", default=1000, type=int)
-parser.add_argument("-eval_period", help="How often to run dev", default=1, type=int)
-parser.add_argument("-log_period", help="How often to save", default=1000, type=int)
+parser.add_argument("-save_period", help="How often to save", default=100, type=int)
+parser.add_argument("-eval_period", help="How often to run dev", default=100, type=int)
+parser.add_argument("-log_period", help="How often to save", default=100, type=int)
 
 parser.add_argument("-load", help="Load existing model.", action='store_true')
 parser.add_argument("-reload_model_name", help="")
