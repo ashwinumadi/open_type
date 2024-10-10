@@ -31,7 +31,7 @@ pip install tensorboard
 echo "== This is the scripting step! =="
 
 #python3 main.py MODEL_1 -lstm_type single -enhanced_mention -data_setup joint -add_crowd -multitask
-python3 main.py crowd -lstm_type single -goal open -enhanced_mention -train_data crowd/train.json -dev_data crowd/dev.json -num_epoch 5 -only_crowd True -remove_el True -remove_open True
+python3 main.py crowd -lstm_type single -goal open -enhanced_mention -train_data crowd/train.json -dev_data crowd/dev.json -num_epoch 5 -only_crowd -remove_el -remove_open
 
 #python3 main.py onto -lstm_type single -goal onto -enhanced_mention -num_epoch 5 #works
 
