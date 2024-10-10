@@ -133,7 +133,7 @@ def _train(args):
       print("T0 : ", loss)
       print("T0 : ", output_logits)
       loss.backward()
-      total_loss += loss.data.cpu()[0]
+      total_loss += loss.data.cpu().item() #change here : loss.data.cpu()[0]
       optimizer.step()
 
       if batch_num % args.log_period == 0 and batch_num > 0:
