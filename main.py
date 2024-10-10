@@ -105,7 +105,7 @@ def _train(args):
   train_log = SummaryWriter(os.path.join(constant.EXP_ROOT, args.model_id, "log", "train"))
   validation_log = SummaryWriter(os.path.join(constant.EXP_ROOT, args.model_id, "log", "validation"))
   tensorboard = TensorboardWriter(train_log, validation_log)
-
+  print("T1: Third stage of Train")
   model = models.Model(args, constant.ANSWER_NUM_DICT[args.goal])
   model.cuda()
   total_loss = 0
@@ -113,13 +113,14 @@ def _train(args):
   start_time = time.time()
   init_time = time.time()
   optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-
+  print("T1: Fourth stage of Train")
   if args.load:
     load_model(args.reload_model_name, constant.EXP_ROOT, args.model_id, model, optimizer)
 
   for idx, m in enumerate(model.modules()):
     logging.info(str(idx) + '->' + str(m))
-
+  print("T1: Fifth stage of Train")
+  print(train_gen_list)
   while True:
     batch_num += 1  # single batch composed of all train signal passed by.
     for (type_name, data_gen) in train_gen_list:
@@ -131,6 +132,7 @@ def _train(args):
         torch.save({'state_dict': model.state_dict(), 'optimizer': optimizer.state_dict()},
                    '{0:s}/{1:s}.pt'.format(constant.EXP_ROOT, args.model_id))
         return
+      print("T1: Sixth stage of Train")
       optimizer.zero_grad()
       #print("T0: ",batch,type_name)
       loss, output_logits = model(batch, type_name)
@@ -139,7 +141,7 @@ def _train(args):
       loss.backward()
       total_loss += loss.data.cpu().item() #change here : loss.data.cpu()[0]
       optimizer.step()
-
+      print("T1: Seventh stage of Train")
       if batch_num % args.log_period == 0 and batch_num > 0:
         gc.collect()
         cur_loss = float(1.0 * loss.detach().cpu().item()) #loss.data.cpu().clone()[0]
