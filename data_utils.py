@@ -77,13 +77,13 @@ def get_word_vec(word, vec_dict):
 
 def get_example(self, generator, glove_dict, batch_size, answer_num,
                 eval_data=False, lstm_type="two", simple_mention=True):
-  print(self._all_shards)
+  '''print(self._all_shards)
   for shard in self._all_shards:
         ids = self._load_shard(shard, eval_data)
         print('Printing Shards')
         print(ids)
         for current_ids in ids:
-          yield current_ids
+          yield current_ids'''
   embed_dim = 300
   cur_stream = [None] * batch_size
   no_more_data = False
@@ -211,7 +211,7 @@ class TypeDataset(object):
     self.word2id = constant.ANS2ID_DICT[goal]
     print("Answer num %d" % (self.answer_num))
     print('Found %d shards at %s' % (len(self._all_shards), filepattern))
-    logging.info('Found %d shards at %s' % (len(self._all_shards), filepattern))
+    #logging.info('Found %d shards at %s' % (len(self._all_shards), filepattern))
 
   def _load_shard(self, shard_name, eval_data):
     """Read one file and convert to ids.

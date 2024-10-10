@@ -30,6 +30,7 @@ pip install tensorboard
 
 echo "== This is the scripting step! =="
 
-python3 main.py MODEL_1 -lstm_type single -enhanced_mention -data_setup joint -add_crowd -multitask
+#python3 main.py MODEL_1 -lstm_type single -enhanced_mention -data_setup joint -add_crowd -multitask
+python3 main.py onto -lstm_type single -goal onto -enhanced_mention
 
 echo "== End of Job =="
