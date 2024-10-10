@@ -43,6 +43,7 @@ class TensorboardWriter:
 def get_data_gen(dataname, mode, args, vocab_set, goal):
   dataset = data_utils.TypeDataset(constant.FILE_ROOT + dataname, lstm_type=args.lstm_type,
                                      goal=goal, vocab=vocab_set)
+  print("T1 : Outside TypeDataset")
   if mode == 'train':
     data_gen = dataset.get_batch(args.batch_size, args.num_epoch, forever=False, eval_data=False,
                                  simple_mention=not args.enhanced_mention)
@@ -52,6 +53,7 @@ def get_data_gen(dataname, mode, args, vocab_set, goal):
   else:
     data_gen = dataset.get_batch(args.eval_batch_size, 1, forever=False, eval_data=True,
                                  simple_mention=not args.enhanced_mention)
+  print("T1 : Outside get_data_gen")
   return data_gen
 
 
