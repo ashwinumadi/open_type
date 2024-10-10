@@ -117,7 +117,7 @@ def get_example(self, generator, glove_dict, batch_size, answer_num,
       mention_end_ind = np.zeros([bsz, 1], np.int64)
     max_mention_length = min(20, max([len(elem[3]) for elem in cur_stream if elem]))
     max_span_chars = min(25, max(max([len(elem[5]) for elem in cur_stream if elem]), 5))
-    annot_ids = np.zeros([bsz], np.object)
+    annot_ids = np.zeros([bsz], dtype=object)
     span_chars = np.zeros([bsz, max_span_chars], np.int64)
     mention_embed = np.zeros([bsz, max_mention_length, embed_dim], np.float32)
     targets = np.zeros([bsz, answer_num], np.float32)
