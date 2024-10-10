@@ -31,7 +31,7 @@ def get_output_index(outputs):
   :return:
   """
   pred_idx = []
-  outputs = sigmoid_fn(outputs).data.cpu().clone()
+  outputs = sigmoid_fn(outputs).detach().cpu().clone() #change "data.cpu" sigmoid_fn(outputs).data.cpu().clone()
   for single_dist in outputs:
     single_dist = single_dist.numpy()
     arg_max_ind = np.argmax(single_dist)

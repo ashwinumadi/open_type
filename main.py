@@ -138,7 +138,7 @@ def _train(args):
 
       if batch_num % args.log_period == 0 and batch_num > 0:
         gc.collect()
-        cur_loss = float(1.0 * loss.data.cpu().clone()[0])
+        cur_loss = float(1.0 * loss.detach().cpu().item()) #loss.data.cpu().clone()[0]
         elapsed = time.time() - start_time
         train_loss_str = ('|loss {0:3f} | at {1:d}step | @ {2:.2f} ms/batch'.format(cur_loss, batch_num,
                                                                                     elapsed * 1000 / args.log_period))
@@ -181,9 +181,9 @@ def evaluate_batch(batch_num, eval_batch, model, tensorboard, val_type_name, goa
   model.eval()
   loss, output_logits = model(eval_batch, val_type_name)
   output_index = get_output_index(output_logits)
-  eval_loss = loss.data.cpu().clone()[0]
+  eval_loss = loss.detach().cpu().item()#change : loss.data.cpu().clone()[0]
   eval_loss_str = 'Eval loss: {0:.7f} at step {1:d}'.format(eval_loss, batch_num)
-  gold_pred = get_gold_pred_str(output_index, eval_batch['y'].data.cpu().clone(), goal)
+  gold_pred = get_gold_pred_str(output_index, eval_batch['y'].detach().cpu().clone(), goal) #change eval_batch['y'].data.cpu().clone()
   eval_accu = sum([set(y) == set(yp) for y, yp in gold_pred]) * 1.0 / len(gold_pred)
   tensorboard.add_validation_scalar('eval_acc_' + val_type_name, eval_accu, batch_num)
   tensorboard.add_validation_scalar('eval_loss_' + val_type_name, eval_loss, batch_num)
@@ -242,8 +242,8 @@ def _test(args):
       eval_batch, annot_ids = to_torch(batch)
       loss, output_logits = model(eval_batch, args.goal)
       output_index = get_output_index(output_logits)
-      output_prob = model.sigmoid_fn(output_logits).data.cpu().clone().numpy()
-      y = eval_batch['y'].data.cpu().clone().numpy()
+      output_prob = model.sigmoid_fn(output_logits).detach().cpu().clone().numpy() #model.sigmoid_fn(output_logits).data.cpu().clone().numpy()
+      y = eval_batch['y'].detach().cpu().clone().numpy()#eval_batch['y'].data.cpu().clone().numpy()
       gold_pred = get_gold_pred_str(output_index, y, args.goal)
       total_probs.extend(output_prob)
       total_ys.extend(y)
