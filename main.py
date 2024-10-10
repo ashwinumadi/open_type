@@ -120,7 +120,7 @@ def _train(args):
   for idx, m in enumerate(model.modules()):
     logging.info(str(idx) + '->' + str(m))
   print("T1: Fifth stage of Train")
-  print(train_gen_list)
+  print(train_gen_list.__dict__)
   while True:
     batch_num += 1  # single batch composed of all train signal passed by.
     for (type_name, data_gen) in train_gen_list:
@@ -141,8 +141,10 @@ def _train(args):
       loss.backward()
       total_loss += loss.data.cpu().item() #change here : loss.data.cpu()[0]
       optimizer.step()
+      print(loss)
       print("T1: Seventh stage of Train")
       if batch_num % args.log_period == 0 and batch_num > 0:
+        print("T1: 8a stage of Train")
         gc.collect()
         cur_loss = float(1.0 * loss.detach().cpu().item()) #loss.data.cpu().clone()[0]
         elapsed = time.time() - start_time
@@ -154,6 +156,7 @@ def _train(args):
         tensorboard.add_train_scalar('train_loss_' + type_name, cur_loss, batch_num)
 
       if batch_num % args.eval_period == 0 and batch_num > 0:
+        print("T1: 8b stage of Train")
         output_index = get_output_index(output_logits)
         gold_pred_train = get_gold_pred_str(output_index, batch['y'].data.cpu().clone(), args.goal)
         accuracy = sum([set(y) == set(yp) for y, yp in gold_pred_train]) * 1.0 / len(gold_pred_train)
@@ -167,6 +170,7 @@ def _train(args):
             evaluate_batch(batch_num, eval_batch, model, tensorboard, val_type_name, args.goal)
     
     if batch_num % args.eval_period == 0 and batch_num > 0 and args.data_setup == 'joint':
+      print("T1: 8c stage of Train")
       # Evaluate Loss on the Turk Dev dataset.
       print('---- eval at step {0:d} ---'.format(batch_num))
       feed_dict = next(crowd_dev_gen)
@@ -174,10 +178,12 @@ def _train(args):
       crowd_eval_loss = evaluate_batch(batch_num, eval_batch, model, tensorboard, "open", args.goal)
     
     if batch_num % args.save_period == 0 and batch_num > 0:
+      print("T1: 8d stage of Train")
       save_fname = '{0:s}/{1:s}_{2:d}.pt'.format(constant.EXP_ROOT, args.model_id, batch_num)
       torch.save({'state_dict': model.state_dict(), 'optimizer': optimizer.state_dict()}, save_fname)
       print(
         'Total {0:.2f} minutes have passed, saving at {1:s} '.format((time.time() - init_time) / 60, save_fname))
+    print("T1: Ninth stage of Train")
   # Training finished! 
   torch.save({'state_dict': model.state_dict(), 'optimizer': optimizer.state_dict()},
              '{0:s}/{1:s}.pt'.format(constant.EXP_ROOT, args.model_id))
