@@ -214,7 +214,7 @@ def load_model(reload_model_name, save_dir, model_id, model, optimizer=None):
     model_file_name = '{0:s}/{1:s}.pt'.format(save_dir, reload_model_name)
   else:
     model_file_name = '{0:s}/{1:s}.pt'.format(save_dir, model_id)
-  checkpoint = torch.load(model_file_)
+  checkpoint = torch.load(model_file_name)
   model.load_state_dict(checkpoint['state_dict'])
   if optimizer:
     optimizer.load_state_dict(checkpoint['optimizer'])
