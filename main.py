@@ -120,7 +120,7 @@ def _train(args):
   for idx, m in enumerate(model.modules()):
     logging.info(str(idx) + '->' + str(m))
   print("T1: Fifth stage of Train")
-  print(train_gen_list[0][1].__dict__)
+  #print(train_gen_list[0][1].__dict__)
   while True:
     batch_num += 1  # single batch composed of all train signal passed by.
     for (type_name, data_gen) in train_gen_list:
