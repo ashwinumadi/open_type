@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --partition=blanca-curc-gpu
 #SBATCH --gres=gpu:1
-#SBATCH --output=Crowd_test_bin2-%j.out
+#SBATCH --output=Crowd_test_bin3-%j.out
 #SBATCH --mail-type="ALL"
 #SBATCH --mail-user="asum8093@colorado.edu"
 
@@ -32,7 +32,7 @@ echo "== This is the scripting step! =="
 
 #python3 main.py MODEL_1 -lstm_type single -enhanced_mention -data_setup joint -add_crowd -multitask
 #python3 main.py crowd_v4 -lstm_type single -goal open -enhanced_mention -train_data crowd/train.json -dev_data crowd/dev.json
-python3 main.py crowd_v4_test -lstm_type single -enhanced_mention -add_crowd -mode test -reload_model_name crowd_v4 -eval_data crowd/bin_2.json -load
+python3 main.py crowd_v4_test -lstm_type single -enhanced_mention -add_crowd -mode test -reload_model_name crowd_v4 -eval_data crowd/bin_3.json -load
 #python3 main.py onto -lstm_type single -goal onto -enhanced_mention -num_epoch 5 #works
 
 #python3 main.py MODEL_ID -lstm_type single -enhanced_mention -data_setup joint -add_crowd -multitask -mode test -reload_model_name MODEL_NAME_TIMESTAMP -eval_data crowd/test.json -load
