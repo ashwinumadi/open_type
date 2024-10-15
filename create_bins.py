@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the CSV file
-csv_file_path = "filtered_entity_probabilities_statistics_BERT.csv"  # Replace with the actual file path
+csv_file_path = "entity_api_response_STRICT_UPTO_2024.csv"  # Replace with the actual file path
 df = pd.read_csv(csv_file_path)
 
 # Verify that the required columns exist
@@ -18,7 +18,7 @@ df_binned = df[['Entity', 'average_probability', 'bins']]
 df_binned_sorted = df_binned.sort_values(by='average_probability', ascending=False)
 
 # Save the new CSV file with 'Entity', 'average_probability', and 'bins', sorted by 'average_probability'
-output_csv_file_path = "sorted_segregated_entity_bins.csv"  # Replace with the desired output path
+output_csv_file_path = "sorted_segregated_entity_bins_api.csv"  # Replace with the desired output path
 df_binned_sorted.to_csv(output_csv_file_path, index=False)
 
 print(f"CSV file with 'Entity', 'average_probability', and 'bins' (sorted) has been saved at {output_csv_file_path}")

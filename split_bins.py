@@ -2,7 +2,7 @@ import pandas as pd
 import json
 
 # Load the sorted CSV file with 'Entity' and 'bins'
-csv_file_path = "sorted_segregated_entity_bins.csv"  # Replace with your actual sorted CSV file path
+csv_file_path = "sorted_segregated_entity_bins_api.csv"  # Replace with your actual sorted CSV file path
 df_bins = pd.read_csv(csv_file_path)
 
 # Convert the CSV 'Entity' and 'bins' columns to a dictionary for quick lookup
